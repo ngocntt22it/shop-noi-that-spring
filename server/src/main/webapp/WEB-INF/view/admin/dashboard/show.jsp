@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
-uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +12,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
     <meta name="author" content="Hỏi Dân IT" />
     <title>Dashboard - Hỏi Dân IT</title>
-    <link href="/css/styles.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
       crossorigin="anonymous"
@@ -28,102 +30,62 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Products</h1>
+            <h1 class="mt-4">Dashboard</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Product</li>
+              <li class="breadcrumb-item active">Thống kê</li>
             </ol>
-            <div class="mt-5">
-              <div class="row">
-                <div class="col-12 mx-auto">
-                  <div class="d-flex justify-content-between">
-                    <h3>Table products</h3>
-                    <a href="/admin/product/create" class="btn btn-primary"
-                      >Create a product</a
+            <div class="row">
+              <div class="col-xl-4 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                  <div class="card-body">Số lượng User (${countUsers})</div>
+                  <div
+                    class="card-footer d-flex align-items-center justify-content-between"
+                  >
+                    <a
+                      class="small text-white stretched-link"
+                      href="/admin/user"
+                      >View Details</a
                     >
+                    <div class="small text-white">
+                      <i class="fas fa-angle-right"></i>
+                    </div>
                   </div>
-
-                  <hr />
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Factory</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <c:forEach var="product" items="${products}">
-                        <tr>
-                          <th>${product.id}</th>
-                          <td>${product.name}</td>
-                          <td>
-                            <fmt:formatNumber
-                              type="number"
-                              value="${product.price}"
-                            />
-                            đ
-                          </td>
-                          <td>${product.factory}</td>
-                          <td>
-                            <a
-                              href="/admin/product/${product.id}"
-                              class="btn btn-success"
-                              >View</a
-                            >
-                            <a
-                              href="/admin/product/update/${product.id}"
-                              class="btn btn-warning mx-2"
-                              >Update</a
-                            >
-                            <a
-                              href="/admin/product/delete/${product.id}"
-                              class="btn btn-danger"
-                              >Delete</a
-                            >
-                          </td>
-                        </tr>
-                      </c:forEach>
-                    </tbody>
-                  </table>
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item">
-                        <a
-                          class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                          href="/admin/product?page=${currentPage - 1}"
-                          aria-label="Previous"
-                        >
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <c:forEach
-                        begin="0"
-                        end="${totalPages - 1}"
-                        varStatus="loop"
-                      >
-                        <li class="page-item">
-                          <a
-                            class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                            href="/admin/product?page=${loop.index + 1}"
-                          >
-                            ${loop.index + 1}
-                          </a>
-                        </li>
-                      </c:forEach>
-                      <li class="page-item">
-                        <a
-                          class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                          href="/admin/product?page=${currentPage + 1}"
-                          aria-label="Next"
-                        >
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                  <div class="card-body">
+                    Số lượng Product (${countProducts})
+                  </div>
+                  <div
+                    class="card-footer d-flex align-items-center justify-content-between"
+                  >
+                    <a
+                      class="small text-white stretched-link"
+                      href="/admin/product"
+                      >View Details</a
+                    >
+                    <div class="small text-white">
+                      <i class="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                  <div class="card-body">Số lượng Order (${countOrders})</div>
+                  <div
+                    class="card-footer d-flex align-items-center justify-content-between"
+                  >
+                    <a
+                      class="small text-white stretched-link"
+                      href="/admin/order"
+                      >View Details</a
+                    >
+                    <div class="small text-white">
+                      <i class="fas fa-angle-right"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,6 +98,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/scripts.js"></script>
+    <script src="js/scripts.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/chart-area-demo.js"></script>
+    <script src="js/chart-bar-demo.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/datatables-simple-demo.js"></script>
   </body>
 </html>

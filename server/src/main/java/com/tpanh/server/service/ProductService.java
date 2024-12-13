@@ -256,7 +256,8 @@ public class ProductService {
                     this.cartDetailRepository.deleteById(cd.getId());
                 }
 
-                this.cartRepository.deleteById(cart.getId());
+                cart.setSum(0);
+                this.cartRepository.save(cart);
 
                 // step 3 : update session
                 session.setAttribute("sum", 0);
